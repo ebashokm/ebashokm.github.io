@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Encoder & Decoder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
+        }
+        textarea {
+            width: 90%;
+            height: 100px;
+            margin: 10px 0;
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+          .btn-encode { background: #007bff; }
+        .btn-decode { background: #28a745; }
+        .btn-copy { background: #ffc107; color: #333; }
+        .btn-encode:hover { background: #0056b3; }
+        .btn-decode:hover { background: #218838; }
+        .btn-copy:hover { background: #e0a800; }
+        .output-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace;
+            text-align: left;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Base64 Encoder & Decoder</h2>
+        <textarea id="input" placeholder="Enter text to encode or Base64 string to decode..."></textarea><br>
+        <button class="btn-encode" onclick="encodeBase64()">Encode</button>
+        <button class="btn-decode" onclick="decodeBase64()">Decode</button>
+                <button class="btn-copy" onclick="copyToClipboard()">Copy to Clipboard</button>
+
+        <div id="output" class="output-box"></div>
+    </div>
+
+    <script>
+        function encodeBase64() {
+            const input = document.getElementById("input").value.trim();
+            if (input) {
+                const encoded = btoa(input);
+                document.getElementById("output").innerHTML = `<strong>Encoded Output:</strong><br>${encoded}`;
+            } else {
+                document.getElementById("output").innerHTML = `<strong style="color: red;">Please enter text to encode.</strong>`;
+            }
+        }
+
+        function decodeBase64() {
+            const input = document.getElementById("input").value.trim();
+            try {
+                const decoded = atob(input);
+                document.getElementById("output").innerHTML = `<strong>Decoded Output:</strong><br>${decoded}`;
+            } catch (error) {
+                document.getElementById("output").innerHTML = `<strong style="color: red;">Invalid Base64 string!</strong>`;
+            }
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById("output").innerText;
+            if (output) {
+                navigator.clipboard.writeText(output.replace(/^(Encoded|Decoded) Output:\n/, ''));
+                alert('Copied to clipboard!');
+            } else {
+                alert('Nothing to copy!');
+            }
+        }
+    </script>
+
+</body>
+</html>
